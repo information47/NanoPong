@@ -35,6 +35,8 @@
   ],
   "C_Cpp_Runner.useAddressSanitizer": false,
   "files.associations": {
-    "nanolib.h": "c"
+    "nanolib.h": "c",
+    "io.h": "c",
+    "stdlib.h": "c"
   }
 }
