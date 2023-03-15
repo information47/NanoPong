@@ -4,6 +4,33 @@
 #include <util/delay.h>
 #include <stdlib.h>
 
+
+void move_raq(raquette* raq, int x){
+
+    t_pin_state state1 = read_input_GPIO(A1);
+    t_pin_state state2 = read_input_GPIO(A0);
+    t_pin_state state3 = read_input_GPIO(D2);
+    t_pin_state state4 = read_input_GPIO(D3);
+
+    raq -> x = x;
+
+    if(state1 == LOW){
+        raq -> y +=1 ;
+        printf("%d\n", raq -> y);
+    }else if(state2 == LOW){
+        raq -> y -=1 ;
+        printf("%d\n", raq -> y);
+            
+    }if(state3 == LOW){
+        raq -> y +=1 ;
+        printf("%d\n", raq -> y);
+    }else if(state4 == LOW){
+        raq -> y -=1 ;
+        printf("%d\n", raq -> y);
+            
+    }
+}
+
 void deplacement(balle *balle)
 {
     balle->x += balle->horizontal_velocity;
@@ -62,6 +89,15 @@ void start(balle *balle)
 
 int main()
 {
+    init_master_SPI(SPI_MODE_0, SPI_MSB_FIRST, SPI_PRESCALER_8);
+    init_block_USART0();
+
+    init_input_GPIO(A1, PULLUP); // up left
+    init_input_GPIO(A0, PULLUP); // down left
+
+    init_input_GPIO(D3, PULLUP); // up right
+    init_input_GPIO(D2, PULLUP); // down right
+
     balle balle;
     balle.x = 4;
     balle.y = 1;
@@ -78,6 +114,32 @@ int main()
     // Boucle infinie
     for (;;)
     {
+        //lire les boutons
+        t_pin_state  stateA0 = read_input_GPIO(A0);
+        if (stateA0 == LOW){
+            printf("bouton A0 enfoncé");
+            raquette1.y ++;
+        }
+        t_pin_state  stateA1 = read_input_GPIO(A1);
+        if (stateA1 == LOW){
+            printf("bouton A1 enfoncé");
+            raquette1.y --;
+
+        }
+        t_pin_state  stateD2 = read_input_GPIO(D2);
+        if (stateD2 == LOW){
+            printf("bouton D2 enfoncé");
+            raquette2.y ++;
+
+        }
+        t_pin_state  stateD3 = read_input_GPIO(D3);
+        if (stateD3 == LOW){
+            printf("bouton D3 enfoncé");
+            raquette2.y --;
+
+        }
+
+
         deplacement(&balle);
         check_collision_raquette(&balle, raquette1, raquette2);
         affichage(balle, raquette1, raquette2);
