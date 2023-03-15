@@ -28,7 +28,7 @@ void move_raq(raquette* raq, int x){
         printf("%d\n", raq -> y);
             
     }
-    }
+}
 
 int main(){
 
