@@ -4,25 +4,21 @@
 #include <avr/interrupt.h>
 #include <util/atomic.h>
 
-typedef struct s_balle
-{
-    //Position
-    int verticale;
-    uint8_t horizontal;
+typedef struct s_balle{
+    // Position
+    int x;
+    int y;
+    // Directions:   droite = 1, gauche = -1, ne bouge pas = 0
+    //               haut = 1, bas = -1, ne bouge pas = 0;
+    int vertical_velocity;
+    int horizontal_velocity;
 
-    //Directions:   droite = 1, gauche = -1, ne bouge pas = 0
-    //              haut = 1, bas = -1, ne bouge pas = 0;
-    int vertical_move;
-    int horizontal_move;
 } balle;
 
-
-typedef struct s_raquet
-{
-    //position horizontal
+typedef struct s_raquet{
+    // position horizontal
     int x;
-    //position vertical
+    // position vertical
     int y;
-    
 
 } raquette;
