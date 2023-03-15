@@ -94,31 +94,56 @@
 //     }
 // }
 
+int readButtons(int buttonState[]){
+    t_pin_state  stateA0 = read_input_GPIO(A0);
+    t_pin_state  stateA1 = read_input_GPIO(A1);
+    t_pin_state  stateD2 = read_input_GPIO(D2);
+    t_pin_state  stateD3 = read_input_GPIO(D3);
+    
+    buttonState[0] = stateA0;
+    buttonState[1] = stateA1;
+    buttonState[2] = stateD2;
+    buttonState[3] = stateD3;
 
+    return buttonState;    
+}
 
 int main(){
     init_master_SPI(SPI_MODE_0, SPI_MSB_FIRST, SPI_PRESCALER_8);
     init_block_USART0();
 
-    init_input_GPIO(PC1, PULLUP); // up left
-    init_input_GPIO(PC0, PULLUP); // down left
+    init_input_GPIO(A1, PULLUP); // up left
+    init_input_GPIO(A0, PULLUP); // down left
 
-    init_input_GPIO(PD3, PULLUP); // up right
-    init_input_GPIO(PD2, PULLUP); // down right
+    init_input_GPIO(D3, PULLUP); // up right
+    init_input_GPIO(D2, PULLUP); // down right
+    // t_nano_pin buttonPins[] = {A0, A1, D2, D3};
 
     for (;;) {
-    t_pin_state  state = read_input_GPIO(PC1);
-    if (state == LOW){
-        printf("button enfoncé");
+    
+    t_pin_state  stateA0 = read_input_GPIO(A0);
+    if (stateA0 == LOW){
+        printf("bouton A0 enfoncé");
+    }
+    t_pin_state  stateA1 = read_input_GPIO(A1);
+    if (stateA1 == LOW){
+        printf("bouton A1 enfoncé");
+    }
+    t_pin_state  stateD2 = read_input_GPIO(D2);
+    if (stateD2 == LOW){
+        printf("bouton D2 enfoncé");
+    }
+    t_pin_state  stateD3 = read_input_GPIO(D3);
+    if (stateD3 == LOW){
+        printf("bouton D3 enfoncé");
+    }
+
+
+    if (stateA0 == LOW) {
+        
     }
    }
-    
-
-
-
-
-
-
-
+   
     return 0;
-}
+   
+   }
