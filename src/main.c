@@ -15,9 +15,15 @@ typedef struct s_balle
     int horizontal_move;
 } balle;
 
+
 typedef struct s_raquet
 {
+    //position horizontal
+    int x;
+    //position vertical
+    int y;
     
+
 } raquette;
 
 
