@@ -24,3 +24,5 @@ typedef struct s_raquet{
     int score;
 
 } raquette;
+
+void move_raq(raquette raq, int x);
