@@ -1,6 +1,26 @@
 # Nanopong
 
+## Branchements : 
+![Schéma](./Schema%20Cablage.png)
 
+### Ecran : 
+SS : portB(2)
+MOSI : portB(3)
+CLK : portB(5)
+
+### Player 1 : 
+Btn : 
+- portC(1) up
+- portC(0) down
+Leds : 
+- portC(3, 4, 5)
+
+### Player 2 : 
+Btn : 
+- portD(3) up
+- portD(2) down
+Leds : 
+- portD(5, 6, 7)
 
 ## Getting started
 
