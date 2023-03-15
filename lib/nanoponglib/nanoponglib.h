@@ -20,5 +20,7 @@ typedef struct s_raquet{
     int x;
     // position vertical
     int y;
+    //score
+    int score;
 
 } raquette;
