@@ -1,6 +1,7 @@
 #include "nanolib.h"
 #include <stdlib.h>
 #include <util/delay.h>
+#include "nanoponglib.h"
 
 
 // typedef struct s_balle
@@ -140,7 +141,7 @@ int main(){
 
 
     if (stateA0 == LOW) {
-        
+
     }
    }
    
