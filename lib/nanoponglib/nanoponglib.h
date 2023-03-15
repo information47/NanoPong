@@ -25,4 +25,6 @@ typedef struct s_raquet
     int y;
     
 
-} raquette;
+} t_raquette;
+
+void move_raq(t_raquette raq, int x);
