@@ -95,19 +95,18 @@
 //     }
 // }
 
-int readButtons(int buttonState[]){
-    t_pin_state  stateA0 = read_input_GPIO(A0);
-    t_pin_state  stateA1 = read_input_GPIO(A1);
-    t_pin_state  stateD2 = read_input_GPIO(D2);
-    t_pin_state  stateD3 = read_input_GPIO(D3);
+// int readButtons(int buttonState[]){
+//     t_pin_state  stateA0 = read_input_GPIO(A0);
+//     t_pin_state  stateA1 = read_input_GPIO(A1);
+//     t_pin_state  stateD2 = read_input_GPIO(D2);
+//     t_pin_state  stateD3 = read_input_GPIO(D3);
     
-    buttonState[0] = stateA0;
-    buttonState[1] = stateA1;
-    buttonState[2] = stateD2;
-    buttonState[3] = stateD3;
-
-    return buttonState;    
-}
+//     buttonState[0] = stateA0;
+//     buttonState[1] = stateA1;
+//     buttonState[2] = stateD2;
+//     buttonState[3] = stateD3;
+//     return buttonState;    
+// }
 
 int main(){
     init_master_SPI(SPI_MODE_0, SPI_MSB_FIRST, SPI_PRESCALER_8);
@@ -141,7 +140,7 @@ int main(){
 
 
     if (stateA0 == LOW) {
-
+        
     }
    }
    
