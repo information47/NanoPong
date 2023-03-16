@@ -20,5 +20,9 @@ typedef struct s_raquet{
     int x;
     // position vertical
     int y;
+    //score
+    int score;
 
 } raquette;
+
+void move_raq(raquette raq, int x);
