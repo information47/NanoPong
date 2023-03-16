@@ -32,9 +32,52 @@ void check_score(raquette *raquette1, raquette *raquette2)
     }
 }
 
+void prestart() {
+    uint8_t one[8] = {
+        0b00000000, 
+        0b00000000, 
+        0b00000000, 
+        0b10010010, 
+        0b10010010, 
+        0b11111110, 
+        0b00000000, 
+        0b00000000
+    };
+
+    write_MAX7219(one);
+    _delay_ms(1000);
+
+    uint8_t two[8] = {
+        0b00000000, 
+        0b00000000, 
+        0b00000000, 
+        0b11110010, 
+        0b10010010, 
+        0b10011110, 
+        0b00000000, 
+        0b00000000
+    };
+
+    write_MAX7219(two);
+    _delay_ms(1000);
+
+    uint8_t three[8] = {
+        0b00000000, 
+        0b00000000, 
+        0b00000000, 
+        0b10000100, 
+        0b11111110, 
+        0b10000000, 
+        0b00000000, 
+        0b00000000
+    };
+
+    write_MAX7219(three);
+    _delay_ms(1000);
+}
+
 void start(balle *balle, raquette *raquette1, raquette *raquette2)
 {
-    balle->x = 4;
     balle->y = 1;
 
     check_score(raquette1, raquette2);
@@ -42,6 +85,7 @@ void start(balle *balle, raquette *raquette1, raquette *raquette2)
     init_ADC(ADC_AVCC, ADC_RIGHT_ADJUST, ADC_NO_INTERRUPT, ADC_PRESCALER_128);
     srand(analog_read(A7));
 
+    // Spawn Horizontal
     if (rand() % 2 == 1)
     {
         balle->horizontal_velocity = 1;
@@ -54,6 +98,12 @@ void start(balle *balle, raquette *raquette1, raquette *raquette2)
     }
 
     srand(analog_read(A7));
+
+    // Spawn Vertical
+    int randVertical = rand() % 6;
+    balle->y = randVertical + 1;
+    raquette1->y = randVertical + 1;
+    raquette2->y = randVertical + 1;
 
     balle->vertical_velocity = 0;
 
@@ -203,7 +253,8 @@ int main()
     raquette2.x = 7;
     raquette2.y = 0;
     raquette2.score = 0;
-
+    
+    prestart();
     start(&balle, &raquette1, &raquette2);
 
     // Boucle infinie
