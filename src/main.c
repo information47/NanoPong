@@ -225,6 +225,9 @@ void check_collision_raquette(balle *balle, raquette *raquette1, raquette *raque
 
 int main()
 {
+    int16_t delay = 300;
+    init_time();
+    sei();  
     init_output_GPIO(A3);
     init_output_GPIO(A4);
     init_output_GPIO(A5);
@@ -256,42 +259,49 @@ int main()
     
     prestart();
     start(&balle, &raquette1, &raquette2);
+    uint32_t referenceTime = get_time();
+    uint32_t timeButton = get_time();
 
-    // Boucle infinie
     while (raquette1.score < 3 && raquette2.score < 3)
     {
-        // lire les boutons
-        t_pin_state stateA0 = read_input_GPIO(A0);
-        if (stateA0 == LOW)
+        uint32_t now2 = get_time();
+        if ((now2 - timeButton) > 100)
         {
-            printf("bouton A0 enfoncé");
-            raquette1.y++;
-        }
-        t_pin_state stateA1 = read_input_GPIO(A1);
-        if (stateA1 == LOW)
-        {
-            printf("bouton A1 enfoncé");
-            raquette1.y--;
-        }
-        t_pin_state stateD2 = read_input_GPIO(D2);
-        if (stateD2 == LOW)
-        {
-            printf("bouton D2 enfoncé");
-            raquette2.y++;
-        }
-        t_pin_state stateD3 = read_input_GPIO(D3);
-        if (stateD3 == LOW)
-        {
-            printf("bouton D3 enfoncé");
-            raquette2.y--;
-        }
+            //lire les boutons
+            t_pin_state  stateA0 = read_input_GPIO(A0);
+            if (stateA0 == LOW && raquette1.y <=4){
+                raquette1.y ++;
+            }
+            t_pin_state  stateA1 = read_input_GPIO(A1);
+            if (stateA1 == LOW && raquette1.y >= 0){
+                raquette1.y --;
 
-        deplacement(&balle);
-        check_collision_raquette(&balle, &raquette1, &raquette2);
-        check_collision_mur(&balle);
-        affichage(balle, raquette1, raquette2);
-        _delay_ms(200);
+            }
+            t_pin_state  stateD2 = read_input_GPIO(D2);
+            if (stateD2 == LOW && raquette2.y <=4){
+                raquette2.y ++;
+
+            }
+            t_pin_state  stateD3 = read_input_GPIO(D3);
+            if (stateD3 == LOW && raquette2.y >= 0){
+                raquette2.y --;
+
+            }
+            timeButton = get_time();
+        }
+        
+        
+        uint32_t now = get_time();
+        if (now >= referenceTime + delay){
+            deplacement(&balle);
+            check_collision_raquette(&balle, &raquette1, &raquette2);
+            check_collision_mur(&balle);
+            affichage(balle, raquette1, raquette2);
+            referenceTime = get_time();
+        } 
+
     }
+
 
     return 0;
 }
