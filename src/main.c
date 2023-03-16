@@ -111,38 +111,6 @@ void start(balle *balle, raquette *raquette1, raquette *raquette2)
     clear_MAX7219();
 }
 
-void move_raq(raquette *raq, int x)
-{
-
-    t_pin_state state1 = read_input_GPIO(A1);
-    t_pin_state state2 = read_input_GPIO(A0);
-    t_pin_state state3 = read_input_GPIO(D2);
-    t_pin_state state4 = read_input_GPIO(D3);
-
-    raq->x = x;
-
-    if (state1 == LOW)
-    {
-        raq->y += 1;
-        printf("%d\n", raq->y);
-    }
-    else if (state2 == LOW)
-    {
-        raq->y -= 1;
-        printf("%d\n", raq->y);
-    }
-    if (state3 == LOW)
-    {
-        raq->y += 1;
-        printf("%d\n", raq->y);
-    }
-    else if (state4 == LOW)
-    {
-        raq->y -= 1;
-        printf("%d\n", raq->y);
-    }
-}
-
 void deplacement(balle *balle)
 {
     balle->x += balle->horizontal_velocity;
