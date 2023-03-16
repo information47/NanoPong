@@ -4,20 +4,20 @@
 #include "nanolib.h"
 
 typedef struct s_nano_port {
-    volatile uint8_t *pinx;
-    volatile uint8_t *portx;
-    volatile uint8_t *ddrx;
+  volatile uint8_t *pinx;
+  volatile uint8_t *portx;
+  volatile uint8_t *ddrx;
 } t_nano_port;
 
 typedef enum e_port_id {
-    B,
-    C,
-    D
+  B,
+  C,
+  D
 } t_port_id;
 
 typedef struct s_pin_port_map {
-    t_port_id port_id;
-    uint8_t bit;
+  t_port_id port_id;
+  uint8_t bit;
 } t_pin_port_map;
 
 
