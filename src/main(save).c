@@ -50,33 +50,6 @@ void start(balle *balle, raquette *raquette1, raquette *raquette2)
     clear_MAX7219();
 }
 
-
-void move_raq(raquette* raq, int x){
-
-    t_pin_state state1 = read_input_GPIO(A1);
-    t_pin_state state2 = read_input_GPIO(A0);
-    t_pin_state state3 = read_input_GPIO(D2);
-    t_pin_state state4 = read_input_GPIO(D3);
-
-    raq -> x = x;
-
-    if(state1 == LOW){
-        raq -> y +=1 ;
-        printf("%d\n", raq -> y);
-    }else if(state2 == LOW){
-        raq -> y -=1 ;
-        printf("%d\n", raq -> y);
-            
-    }if(state3 == LOW){
-        raq -> y +=1 ;
-        printf("%d\n", raq -> y);
-    }else if(state4 == LOW){
-        raq -> y -=1 ;
-        printf("%d\n", raq -> y);
-            
-    }
-}
-
 void deplacement(balle *balle)
 {
     balle->x += balle->horizontal_velocity;
@@ -129,6 +102,9 @@ void check_collision_raquette(balle *balle, raquette *raquette1, raquette *raque
 
 int main()
 {
+    int16_t delay = 200;
+    init_time();
+    sei();
     init_output_GPIO(A3);
     init_output_GPIO(A4);
     init_output_GPIO(A5);
@@ -160,9 +136,13 @@ int main()
 
     start(&balle, &raquette1, &raquette2);
 
-    // Boucle infinie
+
+
+    uint32_t referenceTime = get_time();
+    
     while (raquette1.score < 3 && raquette2.score < 3)
     {
+        // static uint32_t    
         //lire les boutons
         t_pin_state  stateA0 = read_input_GPIO(A0);
         if (stateA0 == LOW){
@@ -183,13 +163,14 @@ int main()
             raquette2.y --;
 
         }
-        _delay_ms(10);
-
-
-        deplacement(&balle);
+        uint32_t now = get_time();
+        if (now >= referenceTime + delay){
+            deplacement(&balle);
         check_collision_raquette(&balle, &raquette1, &raquette2);
         affichage(balle, raquette1, raquette2);
-        _delay_ms(200);
+        referenceTime = get_time();
+        } 
+
     }
 
     return 0;
