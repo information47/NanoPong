@@ -90,27 +90,24 @@ int main()
         //lire les boutons
         t_pin_state  stateA0 = read_input_GPIO(A0);
         if (stateA0 == LOW){
-            printf("bouton A0 enfoncé");
             raquette1.y ++;
         }
         t_pin_state  stateA1 = read_input_GPIO(A1);
         if (stateA1 == LOW){
-            printf("bouton A1 enfoncé");
             raquette1.y --;
 
         }
         t_pin_state  stateD2 = read_input_GPIO(D2);
         if (stateD2 == LOW){
-            printf("bouton D2 enfoncé");
             raquette2.y ++;
 
         }
         t_pin_state  stateD3 = read_input_GPIO(D3);
         if (stateD3 == LOW){
-            printf("bouton D3 enfoncé");
             raquette2.y --;
 
         }
+        _delay_ms(10);
 
 
         deplacement(&balle);
